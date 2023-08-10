@@ -15,4 +15,12 @@ class Comment extends Model
         'recipes_id',
         'comments_parent_id',
     ];
+
+    /**
+     * @var array
+     */
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 }

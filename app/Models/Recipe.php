@@ -12,7 +12,21 @@ class Recipe extends Model
     protected $fillable = [
         'name',
         'description',
+        'preparation_time',
+        'cooking_time',
+        'servings',
+        'ingredients',
+        'instructions',
+        'difficulty',
         'author_id',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function tags()
