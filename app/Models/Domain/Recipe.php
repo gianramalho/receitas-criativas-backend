@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Domain;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,10 +13,8 @@ class Recipe extends Model
         'name',
         'description',
         'preparation_time',
-        'cooking_time',
         'servings',
-        'ingredients',
-        'instructions',
+        'image',
         'difficulty',
         'author_id',
     ];
@@ -32,6 +30,12 @@ class Recipe extends Model
     public function tags()
     {
         return $this->belongsToMany(Recipe::class, 'recipes_has_tags', 'recipes_id', 'tags_id')
+            ->withTimestamps();
+    }
+
+    public function ingredients()
+    {
+        return $this->belongsToMany(Ingredient::class, 'recipes_has_ingredients', 'recipes_id', 'ingredients_id')
             ->withTimestamps();
     }
 

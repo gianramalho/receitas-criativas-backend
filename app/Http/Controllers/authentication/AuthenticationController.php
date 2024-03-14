@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\authentication;
 
 use App\Http\Controllers\Controller;
-use App\Models\Device;
-use App\Models\User;
+use App\Models\Domain\Device;
+use App\Models\Domain\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -90,5 +90,11 @@ class AuthenticationController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
+    }
+
+    public function loginMandatory(){
+            return response()->json([
+                'message' => 'Login is mandatory'
+            ], 401);
     }
 }

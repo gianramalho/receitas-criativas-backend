@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Domain;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Search extends Model
+class Tag extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'input_search',
-        'is_creative_search',
-        'response_creative_search',
+        'name',
+        'description',
+        'tags_parent_id',
     ];
 
     /**
@@ -22,4 +22,10 @@ class Search extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function recipes()
+    {
+        return $this->belongsToMany(Recipe::class, 'recipes_has_tags', 'tags_id', 'recipes_id')
+            ->withTimestamps();
+    }
 }

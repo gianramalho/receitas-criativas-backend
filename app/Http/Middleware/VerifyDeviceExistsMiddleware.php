@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Device;
+use App\Models\Domain\Device;
 use Closure;
 use Illuminate\Http\Request;
 

@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Domain;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Search extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'comment',
-        'users_id',
-        'recipes_id',
-        'comments_parent_id',
+        'input_search',
+        'is_creative_search',
+        'response_creative_search',
     ];
 
     /**

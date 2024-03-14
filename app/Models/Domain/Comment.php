@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Domain;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Device extends Model
+class Comment extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'comment',
         'users_id',
+        'recipes_id',
+        'comments_parent_id',
     ];
 
     /**
