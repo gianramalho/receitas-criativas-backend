@@ -31,6 +31,8 @@ Route::group(['middleware' => 'verify.device.exists'], function () {
                 Route::get('/', [RecipeController::class, 'index'])->name('index');
                 Route::post('/', [RecipeController::class, 'store'])->name('store');
                 Route::get('/{id}', [RecipeController::class, 'show'])->name('show');
+                Route::post('/update/{id}', [RecipeController::class, 'update'])->name('update');
+                Route::post('/delete/{id}', [RecipeController::class, 'delete'])->name('delete');
             });
     });
 });

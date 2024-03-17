@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    //TODO: Implementar a coluna de quantity para salavar a quantidade dos ingredientes na receita
     /**
      * Run the migrations.
      */

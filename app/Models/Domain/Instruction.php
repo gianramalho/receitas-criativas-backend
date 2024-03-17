@@ -22,4 +22,9 @@ class Instruction extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function recipe()
+    {
+        return $this->belongsTo(Recipe::class, 'id', 'recipes_id');
+    }
 }

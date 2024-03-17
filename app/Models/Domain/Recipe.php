@@ -50,4 +50,9 @@ class Recipe extends Model
         return $this->belongsToMany(Device::class, 'favorite_recipes', 'recipes_id', 'devices_id')
             ->withTimestamps();
     }
+
+    public function instructions()
+    {
+        return $this->hasMany(Instruction::class, 'recipes_id', 'id');
+    }
 }

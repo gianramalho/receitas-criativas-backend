@@ -13,7 +13,7 @@ interface RecipeRepositoryInterface
 
     public function store(array $data): ?Recipe;
 
-    public function update(int $id, array $data): Collection;
+    public function update(int $id, array $data): ?Recipe;
 
     public function delete(int $id): int;
 }

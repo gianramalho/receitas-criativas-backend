@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class RecipeController extends Controller
 {
+    //TODO: Tratar melhor os códigos de status da response
     protected $recipeService;
 
     public function __construct(RecipeService $recipeService)
@@ -56,12 +57,32 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
         $recipe = $this->recipeService->store($data);
 
         return response()->json([
             'data' => $recipe,
             'message' => "Recipe created successfully",
+        ], 200);
+    }
+
+    public function update($id, Request $request)
+    {
+        $data = $request->all();
+        $recipe = $this->recipeService->update($id, $data);
+
+        return response()->json([
+            'data' => $recipe,
+            'message' => "Recipe updated successfully",
+        ], 200);
+    }
+
+    public function delete($id)
+    {
+        $recipe = $this->recipeService->delete($id);
+
+        return response()->json([
+            'data' => $recipe,
+            'message' => "Recipe deleted successfully",
         ], 200);
     }
 }
