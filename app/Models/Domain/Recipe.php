@@ -42,6 +42,7 @@ class Recipe extends Model
     public function reviews()
     {
         return $this->belongsToMany(Device::class, 'review_recipes', 'recipes_id', 'devices_id')
+            ->withPivot('score', 'comment')
             ->withTimestamps();
     }
 

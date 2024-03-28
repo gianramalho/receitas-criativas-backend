@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\authentication\AuthenticationController;
+use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,14 @@ Route::group(['middleware' => 'verify.device.exists'], function () {
                 Route::get('/{id}', [RecipeController::class, 'show'])->name('show');
                 Route::post('/update/{id}', [RecipeController::class, 'update'])->name('update');
                 Route::post('/delete/{id}', [RecipeController::class, 'delete'])->name('delete');
+                Route::post('/review/{id}', [RecipeController::class, 'review'])->name('review');
+            });
+
+        Route::name('ingredients.')
+            ->prefix('ingredients')
+            ->group(function () {
+                Route::get('/', [IngredientController::class, 'index'])->name('index');
+                Route::get('/{id}', [IngredientController::class, 'show'])->name('show');
             });
     });
 });

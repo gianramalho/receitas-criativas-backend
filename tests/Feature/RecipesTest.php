@@ -28,9 +28,20 @@ class RecipesTest extends TestCase
 
         $response = $this->actingAs($user)
             ->withHeaders($this->PrepareHeader())
-            ->get(route('recipes.show', random_int(1, 1000)));
+            ->get(route('recipes.show', Recipe::inRandomOrder()->first()->id));
 
         $response->assertStatus(200);
+    }
+
+    public function test_show_non_existing_recipe (): void
+    {
+        $user = User::where('email', 'test@example.com')->first();
+
+        $response = $this->actingAs($user)
+            ->withHeaders($this->PrepareHeader())
+            ->get(route('recipes.show', random_int(1000, 9999)));
+
+        $response->assertStatus(404);
     }
 
     public function test_store_recipe(): void
@@ -43,7 +54,6 @@ class RecipesTest extends TestCase
             'preparation_time' => random_int(1, 500),
             'servings' => random_int(1, 10),
             'image' => Str::random(100),
-            'servings' => random_int(1, 10),
             'difficulty' => random_int(1, 10),
             'author_id' => $user->id,
         ];
@@ -114,6 +124,34 @@ class RecipesTest extends TestCase
         $response = $this->actingAs($user)
             ->withHeaders($this->PrepareHeader())
             ->post(route('recipes.delete', $idRecipe));
+
+        $response->assertStatus(200);
+    }
+
+    public function test_store_review_recipe(): void
+    {
+        $user = User::where('email', 'test@example.com')->first();
+        $idRecipe = Recipe::inRandomOrder()->first()->id;
+
+        $data = [
+            'comment' => fake()->text(),
+            'score' => random_int(1, 5),
+            'author_id' => $user->id,
+        ];
+
+        $response = $this->actingAs($user)
+            ->withHeaders($this->PrepareHeader())
+            ->post(route('recipes.review', $idRecipe), $data);
+
+        $response->assertStatus(200);
+    }
+
+    public function test_list_recipes_best_rated(): void
+    {
+        $user = User::where('email', 'test@example.com')->first();
+        $response = $this->actingAs($user)
+            ->withHeaders($this->PrepareHeader())
+            ->get(route('recipes.index'));
 
         $response->assertStatus(200);
     }
