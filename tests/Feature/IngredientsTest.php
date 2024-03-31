@@ -18,6 +18,17 @@ class IngredientsTest extends TestCase
             ->get(route('ingredients.index'));
 
         $response->assertStatus(200);
+
+        $response->assertJsonStructure([
+            'data' => [
+                '*' => [
+                    'id',
+                    'name',
+                    'description',
+                    'image',
+                ]
+            ]
+        ]);
     }
 
     public function test_show_ingredient(): void

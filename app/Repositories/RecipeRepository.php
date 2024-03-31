@@ -6,6 +6,7 @@ use App\Models\Domain\Device;
 use App\Models\Domain\Recipe;
 use App\Repositories\RecipeRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class RecipeRepository implements RecipeRepositoryInterface
 {
@@ -46,7 +47,15 @@ class RecipeRepository implements RecipeRepositoryInterface
             ->with('instructions')
             ->with('reviews')
             ->with('tags')
-            ->get();
+            ->when(isset($filters['best_rated']), function ($query) use ($filters) {
+                return $query->withCount('reviews')
+                    ->withAvg('reviews', 'review_recipes.score') // Calcula a média das avaliações
+                    ->orderByDesc('reviews_avg_review_recipesscore') // Ordena pela média das avaliações
+                    ->limit(5);
+            })
+            ->when(isset($filters['order_by']), function ($query) use ($filters) {
+                return $query->orderBy($filters['order_by']);
+            })->get();
     }
 
     public function findById(int $id): ?Recipe

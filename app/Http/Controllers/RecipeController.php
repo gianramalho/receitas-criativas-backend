@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Application\Services\RecipeService;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\Rule;
 
 class RecipeController extends Controller
 {
@@ -33,6 +33,7 @@ class RecipeController extends Controller
                 'difficulty' => 'Dificuldade',
                 'author_id' => 'Autor',
                 'ingredients.*' => 'Ingrediente',
+                'order_by' => 'Ordenar Por',
             ],
             [
                 'name' => 'nullable|max:255|string',
@@ -41,6 +42,16 @@ class RecipeController extends Controller
                 'difficulty' => 'nullable|integer|min:1',
                 'author_id' => 'nullable|integer|min:1|exists:users,id',
                 'ingredients.*' => 'nullable|integer|min:1|exists:ingredients,id',
+                'order_by' => [
+                    'nullable',
+                    Rule::in([
+                        'name',
+                        'preparation_time',
+                        'servings',
+                        'difficulty',
+                        'author_id',
+                    ]),
+                ],
             ],
             [
                 'nome.max' => 'O :attribute informado não é válido.',
@@ -57,6 +68,7 @@ class RecipeController extends Controller
                 'ingredients.*.integer' => 'O :attribute informado não é válido.',
                 'ingredients.*.min' => 'O :attribute informado não é válido.',
                 'ingredients.*.exists' => 'O :attribute não foi encontrado.',
+                'order_by.in' => 'O :attribute informado não é válido.',
             ],
         );
 
@@ -110,7 +122,9 @@ class RecipeController extends Controller
                 'author_id' => 'Autor',
                 'image' => 'Imagem',
                 'ingredients.*' => 'Ingrediente',
-                'instructions.*' => 'Instruções',
+                'instructions.*' => 'Instrução',
+                'ingredients' => 'Ingredientes',
+                'instructions' => 'Instruções',
             ],
             [
                 'name' => 'required|max:255|string',
@@ -121,6 +135,8 @@ class RecipeController extends Controller
                 'author_id' => 'required|integer|min:1|exists:users,id',
                 'image' => 'required',
                 'ingredients.*' => 'integer|min:1|exists:ingredients,id',
+                'ingredients' => 'required',
+                'instructions' => 'required',
                 'instructions.*.description' => '',
                 'instructions.*.step' => 'integer|min:1',
             ],
@@ -146,6 +162,8 @@ class RecipeController extends Controller
                 'ingredients.*.integer' => 'O :attribute informado não é válido.',
                 'ingredients.*.min' => 'O :attribute informado não é válido.',
                 'ingredients.*.exists' => 'O :attribute não foi encontrado.',
+                'ingredients.required' => 'Os :attribute são obrigatórios.',
+                'instructions.required' => 'As :attribute são obrigatórias.',
                 'instructions.*.step.integer' => 'A :attribute informada não é válida.',
                 'instructions.*.step.min' => 'A :attribute informada não é válida.',
             ],
