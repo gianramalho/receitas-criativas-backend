@@ -10,6 +10,14 @@ use Tests\TestCase;
 
 class IngredientsTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed();
+    }
+    
     public function test_list_ingredients(): void
     {
         $user = User::where('email', 'test@example.com')->first();

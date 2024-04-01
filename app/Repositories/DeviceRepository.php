@@ -13,6 +13,7 @@ class DeviceRepository implements DeviceRepositoryInterface
         return Device::select(
             'devices.id',
             'devices.name',
+            'devices.users_id',
         )->find($id);
     }
 
@@ -21,6 +22,7 @@ class DeviceRepository implements DeviceRepositoryInterface
         return Device::select(
             'devices.id',
             'devices.name',
+            'devices.users_id',
         )->where('devices.name', $name)
             ->firstOrFail();
     }
@@ -30,5 +32,12 @@ class DeviceRepository implements DeviceRepositoryInterface
         $recipe->reviews()->detach();
 
         return $recipe;
+    }
+
+    public function updateUserId(Device $device, $userId): ?Device
+    {
+        $device->update(['users_id' => $userId]);
+
+        return $device;
     }
 }

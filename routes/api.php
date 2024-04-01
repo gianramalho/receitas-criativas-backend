@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => 'verify.device.exists'], function () {
+//Route::group(['middleware' => 'verify.device.exists'], function () {
     Route::post('/login', [AuthenticationController::class, 'login']);
     Route::get('/login', [AuthenticationController::class, 'loginMandatory'])->name('login');
 
-    Route::middleware(['auth:sanctum'])->group(function () {
+    //Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
@@ -43,5 +43,5 @@ Route::group(['middleware' => 'verify.device.exists'], function () {
                 Route::get('/', [IngredientController::class, 'index'])->name('index');
                 Route::get('/{id}', [IngredientController::class, 'show'])->name('show');
             });
-    });
-});
+    //});
+//});

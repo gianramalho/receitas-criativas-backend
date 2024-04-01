@@ -27,13 +27,23 @@ class IngredientController extends Controller
             $filters,
             [
                 'name' => 'Nome',
+                'ingredients.*' => 'Ingrediente',
+                'recipes.*' => 'Receita',
             ],
             [
                 'name' => 'nullable|max:255|string',
+                'ingredients.*' => 'nullable|integer|min:1|exists:ingredients,id',
+                'recipes.*' => 'nullable|integer|min:1|exists:recipes,id',
             ],
             [
                 'nome.max' => 'O :attribute informado não é válido.',
                 'nome.string' => 'O :attribute informado não é válido.',
+                'ingredients.*.integer' => 'O :attribute informado não é válido.',
+                'ingredients.*.min' => 'O :attribute informado não é válido.',
+                'ingredients.*.exists' => 'O :attribute não foi encontrado.',
+                'recipes.*.integer' => 'A :attribute informada não é válida.',
+                'recipes.*.min' => 'A :attribute informada não é válida.',
+                'recipes.*.exists' => 'A :attribute não foi encontrada.',
             ],
         );
 

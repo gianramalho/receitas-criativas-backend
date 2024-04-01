@@ -12,6 +12,14 @@ use Illuminate\Support\Str;
 
 class RecipesTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed();
+    }
+
     public function test_list_recipes(): void
     {
         $user = User::where('email', 'test@example.com')->first();
@@ -232,6 +240,20 @@ class RecipesTest extends TestCase
             'difficulty' => random_int(1, 10),
             'author_id' => null,
         ];
+
+        $numInstructions = rand(1, 10);
+        $steps = range(1, $numInstructions);
+        shuffle($steps);
+
+        $instructions = array_map(function ($step) {
+            return [
+                'description' => fake()->text(),
+                'step' => $step,
+            ];
+        }, $steps);
+
+        $data['instructions'] = $instructions;
+        $data['ingredients'] = Ingredient::take(rand(1, 10))->inRandomOrder()->get()->pluck('id');
 
         $response = $this->withHeaders($this->PrepareHeader())
             ->post(route('recipes.store'), $data);

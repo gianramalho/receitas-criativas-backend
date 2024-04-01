@@ -35,4 +35,12 @@ class Controller extends BaseController
             'message' => $message
         ], 404);
     }
+
+    protected function successResponseLogin($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ], 200);
+    }
 }
