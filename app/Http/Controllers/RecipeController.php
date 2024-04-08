@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Application\Services\RecipeService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
 class RecipeController extends Controller
@@ -72,8 +71,6 @@ class RecipeController extends Controller
                 'order_by.in' => 'O :attribute informado não é válido.',
             ],
         );
-
-        Log::debug($filters);
 
         if ($validator->fails()) {
             return $this->validationErrorResponse($validator);

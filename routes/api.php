@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::group(['middleware' => 'verify.device.exists'], function () {
+Route::group(['middleware' => 'verify.device.exists'], function () {
     Route::post('/login', [AuthenticationController::class, 'login']);
     Route::get('/login', [AuthenticationController::class, 'loginMandatory'])->name('login');
 
-    //Route::middleware(['auth:sanctum'])->group(function () {
+
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
@@ -30,11 +30,15 @@ use Illuminate\Support\Facades\Route;
             ->prefix('recipes')
             ->group(function () {
                 Route::get('/', [RecipeController::class, 'index'])->name('index');
-                Route::post('/', [RecipeController::class, 'store'])->name('store');
                 Route::get('/{id}', [RecipeController::class, 'show'])->name('show');
-                Route::post('/update/{id}', [RecipeController::class, 'update'])->name('update');
-                Route::post('/delete/{id}', [RecipeController::class, 'delete'])->name('delete');
                 Route::post('/review/{id}', [RecipeController::class, 'review'])->name('review');
+
+                Route::middleware(['auth:sanctum'])->group(function () {
+                    Route::post('/', [RecipeController::class, 'store'])->name('store');
+                    Route::post('/update/{id}', [RecipeController::class, 'update'])->name('update');
+                    Route::post('/delete/{id}', [RecipeController::class, 'delete'])->name('delete');
+                });
+
             });
 
         Route::name('ingredients.')
@@ -43,5 +47,4 @@ use Illuminate\Support\Facades\Route;
                 Route::get('/', [IngredientController::class, 'index'])->name('index');
                 Route::get('/{id}', [IngredientController::class, 'show'])->name('show');
             });
-    //});
-//});
+});
