@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\authentication;
 
-use App\Application\Services\UserService;
+use App\Application\Services\UserServiceInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -10,7 +10,7 @@ class AuthenticationController extends Controller
 {
     protected $userService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserServiceInterface $userService)
     {
         $this->userService = $userService;
     }

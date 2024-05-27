@@ -10,4 +10,5 @@ interface DeviceRepositoryInterface
     public function findById(int $id): ?Device;
     public function findByName(string $name): ?Device;
     public function removeAllReviewsFromRecipe(Recipe $recipe):?Recipe;
+    public function updateUserId(Device $device, $userId): ?Device;
 }

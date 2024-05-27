@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Application\Services\RecipeService;
+use App\Application\Services\RecipeServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -10,7 +10,7 @@ class RecipeController extends Controller
 {
     protected $recipeService;
 
-    public function __construct(RecipeService $recipeService)
+    public function __construct(RecipeServiceInterface $recipeService)
     {
         $this->recipeService = $recipeService;
     }
@@ -54,8 +54,8 @@ class RecipeController extends Controller
                 ],
             ],
             [
-                'nome.max' => 'O :attribute informado não é válido.',
-                'nome.string' => 'O :attribute informado não é válido.',
+                'name.max' => 'O :attribute informado não é válido.',
+                'name.string' => 'O :attribute informado não é válido.',
                 'preparation_time.integer' => 'O :attribute informado não é válido.',
                 'preparation_time.min' => 'O :attribute informado não é válido.',
                 'servings.integer' => 'As :attribute informadas não são válidas.',

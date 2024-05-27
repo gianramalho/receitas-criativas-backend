@@ -9,4 +9,5 @@ interface InstructionRepositoryInterface
 {
     public function store(array $data, Recipe $recipe): ?Collection;
     public function deleteByRecipe(Recipe $recipe);
+    public function update(array $data, Recipe $recipe): ?Collection;
 }

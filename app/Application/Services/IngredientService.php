@@ -3,14 +3,14 @@
 namespace App\Application\Services;
 
 use App\Models\Domain\Ingredient;
-use App\Repositories\IngredientRepository;
+use App\Repositories\IngredientRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class IngredientService implements IngredientServiceInterface
 {
     protected $ingredientRepository;
 
-    public function __construct(IngredientRepository $ingredientRepository)
+    public function __construct(IngredientRepositoryInterface $ingredientRepository)
     {
         $this->ingredientRepository = $ingredientRepository;
     }

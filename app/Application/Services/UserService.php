@@ -2,8 +2,8 @@
 
 namespace App\Application\Services;
 
-use App\Repositories\DeviceRepository;
-use App\Repositories\UserRepository;
+use App\Repositories\DeviceRepositoryInterface;
+use App\Repositories\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +12,7 @@ class UserService implements UserServiceInterface
     protected $userRepository;
     protected $deviceRepository;
 
-    public function __construct(UserRepository $userRepository, DeviceRepository $deviceRepository)
+    public function __construct(UserRepositoryInterface $userRepository, DeviceRepositoryInterface $deviceRepository)
     {
         $this->userRepository = $userRepository;
         $this->deviceRepository = $deviceRepository;

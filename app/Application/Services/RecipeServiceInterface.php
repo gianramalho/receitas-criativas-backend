@@ -12,4 +12,5 @@ interface RecipeServiceInterface
     public function store(array $data) :?Recipe;
     public function update($id, array $data) :?Recipe;
     public function delete($id) :int;
+    public function review($id, array $data): ?Recipe;
 }

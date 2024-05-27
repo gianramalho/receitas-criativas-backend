@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Application\Services\IngredientService;
+use App\Application\Services\IngredientServiceInterface;
 use Illuminate\Http\Request;
 
 class IngredientController extends Controller
 {
     protected $ingredientService;
 
-    public function __construct(IngredientService $ingredientService)
+    public function __construct(IngredientServiceInterface $ingredientService)
     {
         $this->ingredientService = $ingredientService;
     }

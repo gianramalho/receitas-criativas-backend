@@ -11,4 +11,5 @@ interface IngredientRepositoryInterface
     public function addIngredientsToRecipe(array $ingredientIds, Recipe $recipe):?Recipe;
     public function removeAllIngredientsFromRecipe(Recipe $recipe):?Recipe;
     public function listIngredients(array $filters) :Collection;
+    public function findById(int $id): ?Ingredient;
 }

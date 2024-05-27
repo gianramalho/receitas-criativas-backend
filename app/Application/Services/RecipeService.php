@@ -3,10 +3,10 @@
 namespace App\Application\Services;
 
 use App\Models\Domain\Recipe;
-use App\Repositories\DeviceRepository;
-use App\Repositories\IngredientRepository;
-use App\Repositories\InstructionRepository;
-use App\Repositories\RecipeRepository;
+use App\Repositories\DeviceRepositoryInterface;
+use App\Repositories\IngredientRepositoryInterface;
+use App\Repositories\InstructionRepositoryInterface;
+use App\Repositories\RecipeRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +17,7 @@ class RecipeService implements RecipeServiceInterface
     protected $ingredientRepository;
     protected $deviceRepository;
 
-    public function __construct(RecipeRepository $recipeRepository, InstructionRepository $instructionRepository, IngredientRepository $ingredientRepository, DeviceRepository $deviceRepository)
+    public function __construct(RecipeRepositoryInterface $recipeRepository, InstructionRepositoryInterface $instructionRepository, IngredientRepositoryInterface $ingredientRepository, DeviceRepositoryInterface $deviceRepository)
     {
         $this->recipeRepository = $recipeRepository;
         $this->instructionRepository = $instructionRepository;
